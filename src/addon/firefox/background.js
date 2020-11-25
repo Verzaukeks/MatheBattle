@@ -1,4 +1,4 @@
-async function checkForUpdates() {
+function checkForUpdates() {
     fetch('http://127.0.0.1:58001')
         .then(response => response.json())
         .then(json => {
