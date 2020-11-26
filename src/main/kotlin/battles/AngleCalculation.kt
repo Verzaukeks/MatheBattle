@@ -4,24 +4,21 @@ import T
 import TIME_TO_SLEEP
 import Tl
 import control.firefox.FirefoxTab
-import battles.utils.VectorArea
+import battles.utils.VectorPlane
 import battles.utils.VectorLine
-import kotlin.math.absoluteValue
-import kotlin.math.acos
-import kotlin.math.asin
 import kotlin.math.roundToInt
 
 object AngleCalculation {
 
     private const val lineToLineRadioButton = "#EduBattleEduBattleType36"
-    private const val areaToAreaRadioButton = "#EduBattleEduBattleType34"
-    private const val areaToLineRadioButton = "#EduBattleEduBattleType35"
+    private const val planeToPlaneRadioButton = "#EduBattleEduBattleType34"
+    private const val planeToLineRadioButton = "#EduBattleEduBattleType35"
 
     fun angleCalculation(tab: FirefoxTab, index: Int) {
         when (index % 3) {
             0 -> tab.clickElement(lineToLineRadioButton)
-            1 -> tab.clickElement(areaToAreaRadioButton)
-            2 -> tab.clickElement(areaToLineRadioButton)
+            1 -> tab.clickElement(planeToPlaneRadioButton)
+            2 -> tab.clickElement(planeToLineRadioButton)
         }
         tab.clickElement(".submit > input")
         Thread.sleep(TIME_TO_SLEEP)
@@ -29,8 +26,8 @@ object AngleCalculation {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val g = text.substringAfter("g: ", "").substringBefore(" ").let(::VectorLine)
         val h = text.substringAfter("h: ", "").substringBefore(" ").let(::VectorLine)
-        val E = text.substringAfter("E: ", "").let(::areaPrefixCut).substringBefore(" ").let(::VectorArea)
-        val F = text.substringAfter("F: ", "").let(::areaPrefixCut).substringBefore(" ").let(::VectorArea)
+        val E = text.substringAfter("E: ", "").let(::areaPrefixCut).substringBefore(" ").let(::VectorPlane)
+        val F = text.substringAfter("F: ", "").let(::areaPrefixCut).substringBefore(" ").let(::VectorPlane)
 
         var angle = when (index % 3) {
             0 -> g.u.angleWith(h.u)

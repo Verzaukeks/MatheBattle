@@ -3,7 +3,7 @@ package battles.utils
 import T
 import Tl
 
-class VectorArea {
+class VectorPlane {
 
     var n: Vector
     var d: Double
