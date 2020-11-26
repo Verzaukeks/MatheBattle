@@ -1,7 +1,9 @@
-package control.utils
+package battles.utils
 
 import T
 import Tl
+import kotlin.math.absoluteValue
+import kotlin.math.acos
 import kotlin.math.sqrt
 
 class Vector {
@@ -31,7 +33,7 @@ class Vector {
         this.c = c
     }
 
-    fun product(v: Vector) = a * v.a + b * v.b + c * v.c
+    fun scalarProduct(v: Vector) = a * v.a + b * v.b + c * v.c
 
     fun crossProduct(v: Vector): Vector {
         return Vector(
@@ -39,6 +41,14 @@ class Vector {
             c * v.a - a * v.c,
             a * v.b - b * v.a,
         )
+    }
+
+    fun angleWith(v: Vector): Double {
+        val numerator = scalarProduct(v).absoluteValue
+        val denominator = length() * v.length()
+        if (denominator == 0.0) return Double.NaN
+        val radians = acos(numerator / denominator)
+        return Math.toDegrees(radians)
     }
 
     fun length() = sqrt(a*a + b*b + c*c)

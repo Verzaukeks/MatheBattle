@@ -1,19 +1,12 @@
-package control.utils
+package battles.utils
 
 import T
 import Tl
 
-class Ebene {
-
-    companion object {
-        fun extraCut(ebene: String): String {
-            if (ebene.startsWith("$T ")) return ebene.substring(Tl+1)
-            return ebene
-        }
-    }
+class VectorArea {
 
     var n: Vector
-    val d: Double
+    var d: Double
 
     constructor(raw_: String) {
         if (raw_.startsWith(T)) {
@@ -52,9 +45,14 @@ class Ebene {
         }
     }
 
+    constructor(p: Vector, u: Vector, v: Vector) {
+        n = u.crossProduct(v)
+        d = n.scalarProduct(p)
+    }
+
     constructor(n: Vector, d: Double) {
-        this.n = n;
-        this.d = d;
+        this.n = n
+        this.d = d
     }
 
     override fun toString(): String {

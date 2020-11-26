@@ -1,16 +1,16 @@
-package control.utils
+package battles.utils
 
 import T
 
-class Gerade {
+class VectorLine {
 
     var p: Vector
     var u: Vector
 
     constructor(raw: String) {
         if (raw.startsWith("${T}x${T}→${T}=")) {
-            p = raw.substringAfter("=").substringBefore("+").let { Vector(it) }
-            u = raw.substringAfter("t⋅").substringBefore(" ").let { Vector(it) }
+            p = raw.substringAfter("=").substringBefore("+").let(::Vector)
+            u = raw.substringAfter("t⋅").substringBefore(" ").let(::Vector)
         } else {
             p = Vector()
             u = Vector()

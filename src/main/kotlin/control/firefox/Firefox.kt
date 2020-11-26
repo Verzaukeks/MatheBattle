@@ -128,6 +128,8 @@ class Firefox : Browser {
 
             if (++tries >= 12) {
                 // TODO - check why it is timing out after some time
+                //        /script may be inserted to early
+                //        /querySelector throws null
                 // throw TimeoutException("queueId=$id, type=${request.get("type")}")
                 return JsonObject()
             }
