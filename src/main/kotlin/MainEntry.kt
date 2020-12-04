@@ -1,5 +1,6 @@
 import battles.AngleCalculation.angleCalculation
 import battles.AreaVolumeCalculation.areaVolumeCalculation
+import battles.RepetitionOfAnalysis.repetitionOfAnalysis
 import control.firefox.Firefox
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API
@@ -18,7 +19,8 @@ fun main(args: Array<String>) {
     val tab = firefox.getTabs().first { it.url.startsWith("https://mathebattle.de") }
     while (true) {
         //angleCalculation(tab, index++)
-        areaVolumeCalculation(tab, index++)
+        //areaVolumeCalculation(tab, index++)
+        repetitionOfAnalysis(tab, index++)
     }
 
 }
