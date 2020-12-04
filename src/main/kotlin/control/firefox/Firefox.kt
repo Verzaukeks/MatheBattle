@@ -115,11 +115,22 @@ class Firefox : Browser {
         return null
     }
 
-    fun request(request: JsonObject): JsonObject {
+    fun request(request: JsonObject, async: Boolean = false): JsonObject {
         val id = idIndex++
         request.addProperty("queueId", id)
         synchronized(queue) { queue += request }
 
+        if (async) {
+            thread(isDaemon = true) {
+                requestBlock(id, request)
+            }
+            return JsonObject()
+        }
+
+        return requestBlock(id, request)
+    }
+
+    private fun requestBlock(id: Int, request: JsonObject): JsonObject {
         var tries = 0
         while (true) {
 
@@ -131,8 +142,7 @@ class Firefox : Browser {
                 //        /script may be inserted to early
                 //        /script may throw error
                 //        /querySelector throws null
-                // throw TimeoutException("queueId=$id, type=${request.get("type")}")
-                return JsonObject()
+                throw TimeoutException("queueId=$id, type=${request.get("type")}")
             }
 
             Thread.sleep(500)

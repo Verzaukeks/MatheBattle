@@ -1,6 +1,5 @@
 package battles
 
-import TIME_TO_SLEEP
 import battles.utils.Point
 import control.firefox.FirefoxTab
 import kotlin.math.absoluteValue
@@ -14,13 +13,12 @@ object AreaVolumeCalculation {
 
     fun areaVolumeCalculation(tab: FirefoxTab, index: Int) {
         when (index % 4) {
-            0 -> tab.clickElement(areaParallelogramRadioButton)
-            1 -> tab.clickElement(areaTriangleRadioButton)
-            2 -> tab.clickElement(volumePyramidRadioButton)
-            3 -> tab.clickElement(volumeTrianglePyramidRadioButton)
+            0 -> tab.clickElement(areaParallelogramRadioButton, true)
+            1 -> tab.clickElement(areaTriangleRadioButton, true)
+            2 -> tab.clickElement(volumePyramidRadioButton, true)
+            3 -> tab.clickElement(volumeTrianglePyramidRadioButton, true)
         }
         tab.clickElement(".submit > input")
-        Thread.sleep(TIME_TO_SLEEP)
 
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '').replaceAll('\\t', '');")
         val A = text.substringAfter("A(", "").substringBefore(")").let(::Point)
@@ -37,7 +35,6 @@ object AreaVolumeCalculation {
         }
 
         tab.clickElement(".submit > input")
-        Thread.sleep(TIME_TO_SLEEP)
     }
 
     private fun areaParallelogram(tab: FirefoxTab, A: Point, B: Point, C: Point) {

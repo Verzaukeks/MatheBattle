@@ -1,7 +1,6 @@
 package battles
 
 import T
-import TIME_TO_SLEEP
 import Tl
 import control.firefox.FirefoxTab
 import battles.utils.VectorPlane
@@ -16,12 +15,11 @@ object AngleCalculation {
 
     fun angleCalculation(tab: FirefoxTab, index: Int) {
         when (index % 3) {
-            0 -> tab.clickElement(lineToLineRadioButton)
-            1 -> tab.clickElement(planeToPlaneRadioButton)
-            2 -> tab.clickElement(planeToLineRadioButton)
+            0 -> tab.clickElement(lineToLineRadioButton, true)
+            1 -> tab.clickElement(planeToPlaneRadioButton, true)
+            2 -> tab.clickElement(planeToLineRadioButton, true)
         }
         tab.clickElement(".submit > input")
-        Thread.sleep(TIME_TO_SLEEP)
 
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val g = text.substringAfter("g: ", "").substringBefore(" ").let(::VectorLine)
@@ -40,7 +38,6 @@ object AngleCalculation {
 
         tab.inputText(".value_form > input", "$angle")
         tab.clickElement(".submit > input")
-        Thread.sleep(TIME_TO_SLEEP)
     }
 
     private fun cutTab(raw: String): String {

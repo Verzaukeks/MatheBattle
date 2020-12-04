@@ -38,12 +38,14 @@ class FirefoxTab(
         })
     }
 
-    override fun executeScript(script: String): String {
+    override fun executeScript(script: String, async: Boolean): String {
         val json = firefox.request(JsonObject().apply {
             addProperty("type", "executeScript")
             addProperty("id", id)
             addProperty("script", script)
-        })
+        }, async)
+
+        if (!json.has("result")) return ""
         return json.get("result").asString
     }
 

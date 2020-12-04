@@ -1,7 +1,6 @@
 package battles
 
 import T
-import TIME_TO_SLEEP
 import battles.utils.EulerFunction
 import battles.utils.Interval
 import battles.utils.PolynomialFunction
@@ -21,16 +20,15 @@ object RepetitionOfAnalysis {
 
     fun repetitionOfAnalysis(tab: FirefoxTab, index: Int) {
         when (index % 7) {
-            0 -> tab.clickElement(turningPointsRadioButton)
-            1 -> tab.clickElement(inflectionPointsRadioButton)
-            2 -> tab.clickElement(intervalMonotonicityRadioButton)
-            3 -> tab.clickElement(intervalCurvatureBehaviorRadioButton)
-            4 -> tab.clickElement(inflectionTangentsRadioButton)
-            5 -> tab.clickElement(turningPointsTrigonometricRadioButton)
-            6 -> tab.clickElement(turningPointsERadioButton)
+            0 -> tab.clickElement(turningPointsRadioButton, true)
+            1 -> tab.clickElement(inflectionPointsRadioButton, true)
+            2 -> tab.clickElement(intervalMonotonicityRadioButton, true)
+            3 -> tab.clickElement(intervalCurvatureBehaviorRadioButton, true)
+            4 -> tab.clickElement(inflectionTangentsRadioButton, true)
+            5 -> tab.clickElement(turningPointsTrigonometricRadioButton, true)
+            6 -> tab.clickElement(turningPointsERadioButton, true)
         }
         tab.clickElement(".submit > input")
-        Thread.sleep(TIME_TO_SLEEP)
 
         when (index % 7) {
             0 -> turningPoints(tab)
@@ -43,7 +41,6 @@ object RepetitionOfAnalysis {
         }
 
         tab.clickElement(".submit > input")
-        Thread.sleep(TIME_TO_SLEEP)
     }
 
     private fun turningPoints(tab: FirefoxTab) {
@@ -54,7 +51,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;")
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
 
         var index = 0
         val yz = df.replaceYwith0().sorted()
@@ -64,12 +61,12 @@ object RepetitionOfAnalysis {
             val ddy = ddf.replaceX(x)
             if (ddy == 0.0) continue
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;")
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", true)
             tab.inputText("#x$index", "${x.toInt()}")
             tab.inputText("#y$index", "${y.toInt()}")
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;")
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
         }
     }
 
@@ -83,7 +80,7 @@ object RepetitionOfAnalysis {
         val ddf = df.differentiate()
         val dddf = ddf.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;")
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
 
         var index = 0
         val yz = ddf.replaceYwith0().sorted()
@@ -97,7 +94,7 @@ object RepetitionOfAnalysis {
             tab.inputText("#y$index", "${y.toInt()}")
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;")
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
         }
     }
 
@@ -110,7 +107,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;")
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
         for (index in 0..4) {
             tab.inputText("#x$index", "")
             tab.inputText("#y$index", "")
@@ -127,11 +124,11 @@ object RepetitionOfAnalysis {
             val cur = if (end) "U" else x.toInt().toString()
             val ddy = ddf.replaceX(if (end && index > 0) yz[index - 1] else x) * if (end) -1 else 1
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;")
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", true)
             tab.inputText("#x$index", prev)
             tab.inputText("#y$index", cur)
 
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;")
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
         }
     }
 
@@ -143,7 +140,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;")
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
         for (index in 0..4) {
             tab.inputText("#x$index", "")
             tab.inputText("#y$index", "")
@@ -161,11 +158,11 @@ object RepetitionOfAnalysis {
             val ddx = if (end) { yz[index - 1] + 1 } else { x - 1 }
             val ddy = ddf.replaceX(ddx)
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy > 0) 0 else 1}].selected=true;")
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy > 0) 0 else 1}].selected=true;", true)
             tab.inputText("#x$index", prev)
             tab.inputText("#y$index", cur)
 
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;")
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
         }
     }
 
@@ -204,7 +201,7 @@ object RepetitionOfAnalysis {
         val f = TrigonometricFunction(text)
         val iv = Interval(text)
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;")
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
 
         var maxi: Double
         var mini: Double
@@ -247,7 +244,7 @@ object RepetitionOfAnalysis {
             tab.inputText("#y$index", "${y.roundToInt()}")
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;")
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
         }
     }
 
@@ -260,7 +257,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;")
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
 
         var index = 0
         val yz = df.replaceYwith0().sorted()
@@ -273,12 +270,12 @@ object RepetitionOfAnalysis {
             val dx = "${(x * 1000000).roundToInt() / 1000000.0}".replace(".", ",")
             val dy = "${(y * 1000000).roundToInt() / 1000000.0}".replace(".", ",")
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;")
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", true)
             tab.inputText("#x$index", dx)
             tab.inputText("#y$index", dy)
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;")
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
         }
     }
 

@@ -54,6 +54,16 @@ function sendUpdate(json, onResponse) {
         .then(json => { if (onResponse) onResponse(json) });
 }
 
+function doWhenTabCompleted(id, onCompleted) {
+    browser.tabs.get(id)
+        .then(tab => {
+            if (tab.status == 'loading')
+                setTimeout(doWhenTabCompleted, 10, id, onCompleted);
+            else
+                onCompleted(tab);
+        });
+}
+
 function getTab(json) {
     browser.tabs.get(json.id)
         .then(tab => {
@@ -78,11 +88,14 @@ function removeTab(json) {
 }
 
 function executeScript(json) {
-    browser.tabs.executeScript(json.id, { code: json.script })
-        .then(results => {
-            json.result = results[0];
-            sendUpdate(json);
-        });
+    doWhenTabCompleted(json.id, () => {
+        let script = 'try { ' + json.script + ' } catch (error) {}';
+        browser.tabs.executeScript(json.id, { code: script })
+            .then(results => {
+                json.result = results[0];
+                sendUpdate(json);
+            });
+    });
 }
 
 function insertCSS(json) {

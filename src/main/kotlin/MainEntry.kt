@@ -8,7 +8,6 @@ import control.firefox.Firefox
 
 const val T = "\\t"
 const val Tl = T.length
-const val TIME_TO_SLEEP = 300L
 
 fun main(args: Array<String>) {
 
