@@ -1,7 +1,7 @@
 package battles
 
 import battles.utils.Point
-import control.firefox.FirefoxTab
+import control.Tab
 import kotlin.math.absoluteValue
 
 object AreaVolumeCalculation {
@@ -11,12 +11,12 @@ object AreaVolumeCalculation {
     private const val volumePyramidRadioButton = "#EduBattleEduBattleType82"
     private const val volumeTrianglePyramidRadioButton = "#EduBattleEduBattleType933"
 
-    fun areaVolumeCalculation(tab: FirefoxTab, index: Int) {
+    fun areaVolumeCalculation(tab: Tab, index: Int) {
         when (index % 4) {
-            0 -> tab.clickElement(areaParallelogramRadioButton, true)
-            1 -> tab.clickElement(areaTriangleRadioButton, true)
-            2 -> tab.clickElement(volumePyramidRadioButton, true)
-            3 -> tab.clickElement(volumeTrianglePyramidRadioButton, true)
+            0 -> tab.clickElement(areaParallelogramRadioButton, false)
+            1 -> tab.clickElement(areaTriangleRadioButton, false)
+            2 -> tab.clickElement(volumePyramidRadioButton, false)
+            3 -> tab.clickElement(volumeTrianglePyramidRadioButton, false)
         }
         tab.clickElement(".submit > input")
 
@@ -37,7 +37,7 @@ object AreaVolumeCalculation {
         tab.clickElement(".submit > input")
     }
 
-    private fun areaParallelogram(tab: FirefoxTab, A: Point, B: Point, C: Point) {
+    private fun areaParallelogram(tab: Tab, A: Point, B: Point, C: Point) {
         val BC = B.vectorTo(C)
         val D = A + BC
 
@@ -51,7 +51,7 @@ object AreaVolumeCalculation {
         tab.inputText(".value_form > input", "${area.toInt()}")
     }
 
-    private fun areaTriangle(tab: FirefoxTab, A: Point, B: Point, C: Point) {
+    private fun areaTriangle(tab: Tab, A: Point, B: Point, C: Point) {
         val AB = A.vectorTo(B)
         val AC = A.vectorTo(C)
         val area = AB.crossProduct(AC).length() * 0.5
@@ -59,7 +59,7 @@ object AreaVolumeCalculation {
         tab.inputText(".value_form > input", "${area.toInt()}")
     }
 
-    private fun volumePyramid(tab: FirefoxTab, A: Point, B: Point, D: Point, S: Point) {
+    private fun volumePyramid(tab: Tab, A: Point, B: Point, D: Point, S: Point) {
         val AB = A.vectorTo(B)
         val AD = A.vectorTo(D)
         val AS = A.vectorTo(S)
@@ -68,7 +68,7 @@ object AreaVolumeCalculation {
         tab.inputText(".value_form > input", "${volume.toInt()}")
     }
 
-    private fun volumeTrianglePyramid(tab: FirefoxTab, A: Point, B: Point, C: Point, S: Point) {
+    private fun volumeTrianglePyramid(tab: Tab, A: Point, B: Point, C: Point, S: Point) {
         val AB = A.vectorTo(B)
         val AC = A.vectorTo(C)
         val AS = A.vectorTo(S)

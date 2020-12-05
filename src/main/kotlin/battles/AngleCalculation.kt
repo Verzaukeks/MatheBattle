@@ -2,7 +2,7 @@ package battles
 
 import T
 import Tl
-import control.firefox.FirefoxTab
+import control.Tab
 import battles.utils.VectorPlane
 import battles.utils.VectorLine
 import kotlin.math.roundToInt
@@ -13,11 +13,11 @@ object AngleCalculation {
     private const val planeToPlaneRadioButton = "#EduBattleEduBattleType34"
     private const val planeToLineRadioButton = "#EduBattleEduBattleType35"
 
-    fun angleCalculation(tab: FirefoxTab, index: Int) {
+    fun angleCalculation(tab: Tab, index: Int) {
         when (index % 3) {
-            0 -> tab.clickElement(lineToLineRadioButton, true)
-            1 -> tab.clickElement(planeToPlaneRadioButton, true)
-            2 -> tab.clickElement(planeToLineRadioButton, true)
+            0 -> tab.clickElement(lineToLineRadioButton, false)
+            1 -> tab.clickElement(planeToPlaneRadioButton, false)
+            2 -> tab.clickElement(planeToLineRadioButton, false)
         }
         tab.clickElement(".submit > input")
 

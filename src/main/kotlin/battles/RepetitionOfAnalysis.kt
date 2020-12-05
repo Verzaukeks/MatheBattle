@@ -5,7 +5,7 @@ import battles.utils.EulerFunction
 import battles.utils.Interval
 import battles.utils.PolynomialFunction
 import battles.utils.TrigonometricFunction
-import control.firefox.FirefoxTab
+import control.Tab
 import kotlin.math.roundToInt
 
 object RepetitionOfAnalysis {
@@ -18,15 +18,15 @@ object RepetitionOfAnalysis {
     private const val turningPointsTrigonometricRadioButton = "#EduBattleEduBattleType723"
     private const val turningPointsERadioButton = "#EduBattleEduBattleType424"
 
-    fun repetitionOfAnalysis(tab: FirefoxTab, index: Int) {
+    fun repetitionOfAnalysis(tab: Tab, index: Int) {
         when (index % 7) {
-            0 -> tab.clickElement(turningPointsRadioButton, true)
-            1 -> tab.clickElement(inflectionPointsRadioButton, true)
-            2 -> tab.clickElement(intervalMonotonicityRadioButton, true)
-            3 -> tab.clickElement(intervalCurvatureBehaviorRadioButton, true)
-            4 -> tab.clickElement(inflectionTangentsRadioButton, true)
-            5 -> tab.clickElement(turningPointsTrigonometricRadioButton, true)
-            6 -> tab.clickElement(turningPointsERadioButton, true)
+            0 -> tab.clickElement(turningPointsRadioButton, false)
+            1 -> tab.clickElement(inflectionPointsRadioButton, false)
+            2 -> tab.clickElement(intervalMonotonicityRadioButton, false)
+            3 -> tab.clickElement(intervalCurvatureBehaviorRadioButton, false)
+            4 -> tab.clickElement(inflectionTangentsRadioButton, false)
+            5 -> tab.clickElement(turningPointsTrigonometricRadioButton, false)
+            6 -> tab.clickElement(turningPointsERadioButton, false)
         }
         tab.clickElement(".submit > input")
 
@@ -43,7 +43,7 @@ object RepetitionOfAnalysis {
         tab.clickElement(".submit > input")
     }
 
-    private fun turningPoints(tab: FirefoxTab) {
+    private fun turningPoints(tab: Tab) {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val type = if ("·" in text) 2 else 1
 
@@ -51,7 +51,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", false)
 
         var index = 0
         val yz = df.replaceYwith0().sorted()
@@ -61,17 +61,17 @@ object RepetitionOfAnalysis {
             val ddy = ddf.replaceX(x)
             if (ddy == 0.0) continue
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", true)
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", false)
             tab.inputText("#x$index", "${x.toInt()}")
             tab.inputText("#y$index", "${y.toInt()}")
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", false)
         }
     }
 
     // sometimes wrong?
-    private fun inflectionPoints(tab: FirefoxTab) {
+    private fun inflectionPoints(tab: Tab) {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val type = if ("·" in text) 2 else 1
 
@@ -80,7 +80,7 @@ object RepetitionOfAnalysis {
         val ddf = df.differentiate()
         val dddf = ddf.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", false)
 
         var index = 0
         val yz = ddf.replaceYwith0().sorted()
@@ -94,12 +94,12 @@ object RepetitionOfAnalysis {
             tab.inputText("#y$index", "${y.toInt()}")
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", false)
         }
     }
 
     // sometimes wrong?
-    private fun intervalMonotonicity(tab: FirefoxTab) {
+    private fun intervalMonotonicity(tab: Tab) {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val type = 3
 
@@ -107,7 +107,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", false)
         for (index in 0..4) {
             tab.inputText("#x$index", "")
             tab.inputText("#y$index", "")
@@ -124,15 +124,15 @@ object RepetitionOfAnalysis {
             val cur = if (end) "U" else x.toInt().toString()
             val ddy = ddf.replaceX(if (end && index > 0) yz[index - 1] else x) * if (end) -1 else 1
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", true)
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", false)
             tab.inputText("#x$index", prev)
             tab.inputText("#y$index", cur)
 
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", false)
         }
     }
 
-    private fun intervalCurvatureBehavior(tab: FirefoxTab) {
+    private fun intervalCurvatureBehavior(tab: Tab) {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val type = 3
 
@@ -140,7 +140,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", false)
         for (index in 0..4) {
             tab.inputText("#x$index", "")
             tab.inputText("#y$index", "")
@@ -158,15 +158,15 @@ object RepetitionOfAnalysis {
             val ddx = if (end) { yz[index - 1] + 1 } else { x - 1 }
             val ddy = ddf.replaceX(ddx)
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy > 0) 0 else 1}].selected=true;", true)
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy > 0) 0 else 1}].selected=true;", false)
             tab.inputText("#x$index", prev)
             tab.inputText("#y$index", cur)
 
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", false)
         }
     }
 
-    private fun inflectionTangents(tab: FirefoxTab) {
+    private fun inflectionTangents(tab: Tab) {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val type = 3
 
@@ -189,7 +189,7 @@ object RepetitionOfAnalysis {
         }
     }
 
-    private fun turningPointsTrigonometric(tab: FirefoxTab) {
+    private fun turningPointsTrigonometric(tab: Tab) {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
 
         val asked = when {
@@ -201,7 +201,7 @@ object RepetitionOfAnalysis {
         val f = TrigonometricFunction(text)
         val iv = Interval(text)
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", false)
 
         var maxi: Double
         var mini: Double
@@ -244,11 +244,11 @@ object RepetitionOfAnalysis {
             tab.inputText("#y$index", "${y.roundToInt()}")
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", false)
         }
     }
 
-    private fun turningPointsE(tab: FirefoxTab) {
+    private fun turningPointsE(tab: Tab) {
         val text = tab.executeScript("document.querySelector('.exercise_question').textContent.replaceAll('\\n', '');").let(::cutTab)
         val raw = text.substringAfter("f(x)=$T").substringBefore("$T:$T")
         val type = raw.count { it == 'e' }
@@ -257,7 +257,7 @@ object RepetitionOfAnalysis {
         val df = f.differentiate()
         val ddf = df.differentiate()
 
-        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", true)
+        tab.executeScript("document.querySelector('#anzahl').children[0].selected=true;", false)
 
         var index = 0
         val yz = df.replaceYwith0().sorted()
@@ -270,12 +270,12 @@ object RepetitionOfAnalysis {
             val dx = "${(x * 1000000).roundToInt() / 1000000.0}".replace(".", ",")
             val dy = "${(y * 1000000).roundToInt() / 1000000.0}".replace(".", ",")
 
-            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", true)
+            tab.executeScript("document.querySelector('#opt_$index').children[0].children[${if (ddy < 0) 0 else 1}].selected=true;", false)
             tab.inputText("#x$index", dx)
             tab.inputText("#y$index", dy)
 
             index ++
-            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", true)
+            tab.executeScript("document.querySelector('#anzahl').children[$index].selected=true;", false)
         }
     }
 
