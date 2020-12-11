@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FirefoxControl</title>
+</head>
+<body>
+
+    <header class="panel-section panel-section-header">
+        <div class="icon-section-header"><img width="100%" height="100%" src="../icon-64.png"/></div>
+        <div class="text-section-header">BrowserControl</div>
+    </header>
+
+    <div class="panel-section panel-section-formElements">
+        <div class="panel-formElements-item">
+            <label for="status">Status:</label>
+            <div id="status"></div>
+        </div>
+        <div class="panel-formElements-item">
+            <label for="host">Host:</label>
+            <input type="text" id="host" />
+        </div>
+        <div class="panel-formElements-item">
+            <label for="port">Port:</label>
+            <input type="text" id="port" />
+        </div>
+        <div class="panel-formElements-item">
+            <label for="interval">CheckInterval (in ms):</label>
+            <input type="text" id="interval" />
+        </div>
+        <div class="panel-formElements-item">
+            <label for="send">Packet Send:</label>
+            <div id="send"></div>
+        </div>
+        <div class="panel-formElements-item">
+            <label for="received">Packet Received:</label>
+            <div id="received"></div>
+        </div>
+    </div>
+
+    <footer class="panel-section panel-section-footer">
+        <button class="panel-section-footer-button" id="stop">Stop</button>
+        <div class="panel-section-footer-separator"></div>
+        <button class="panel-section-footer-button" id="start">Start</button>
+    </footer>
+
+    <script src="popup.js"></script>
+</body>
+</html>

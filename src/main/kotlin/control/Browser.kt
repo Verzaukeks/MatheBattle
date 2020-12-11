@@ -13,6 +13,7 @@ class Browser {
 
     private var server: ServerSocket? = null
     private var thread: Thread? = null
+    private var checkInterval: Long = 500
 
     private val gson = Gson()
     private var packetIndex = 1
@@ -69,6 +70,11 @@ class Browser {
             inputStream.read(buffer)
 
             val json = when (type) {
+                "GET" -> {
+                    runCatching { descriptor.split(" ")[1].substring(1).toLong() }
+                    .onSuccess { checkInterval = it }
+                    runGet()
+                }
                 "POST" -> {
                     val json = gson.fromJson(buffer.decodeToString(), JsonObject::class.java)
                     runPost(json) ?: JsonObject()
@@ -154,7 +160,7 @@ class Browser {
             if (++tries >= 12)
                 throw TimeoutException("no response from packet: $packet")
 
-            Thread.sleep(500)
+            Thread.sleep(checkInterval)
         }
     }
 

@@ -1,7 +1,8 @@
 const connector = {
 
     checkForUpdates: () => {
-        fetch('http://' + config.connectorHost + ':' + config.connectorPort)
+        if (!config.connectorEnabled) return;
+        fetch('http://' + config.connectorHost + ':' + config.connectorPort + '/' + config.connectorCheckInterval)
             .then(response => response.json())
             .then(json => {
                 if (json.queue) json.queue.forEach(connector.onUpdate);
@@ -41,10 +42,13 @@ const connector = {
             handler.insertCSS(packet);
             break;
         default:
+            return;
         }
+        config.dataPacketsReceived ++;
     },
 
     sendUpdate: (packet, onResponse) => {
+        if (!config.connectorEnabled) return;
         fetch('http://' + config.connectorHost + ':' + config.connectorPort, {
             method: 'POST',
             headers: {
@@ -55,6 +59,7 @@ const connector = {
             .then(response => response.json())
             .then(json => {
                 if (onResponse) onResponse(json);
+                config.dataPacketsSend ++;
             })
     },
 
