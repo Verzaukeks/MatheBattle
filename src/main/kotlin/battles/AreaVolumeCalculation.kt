@@ -1,7 +1,7 @@
 package battles
 
 import battles.utils.Point
-import control.Tab
+import browser.control.Tab
 import kotlin.math.absoluteValue
 
 object AreaVolumeCalculation {

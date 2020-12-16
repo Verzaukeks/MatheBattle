@@ -2,7 +2,7 @@ package battles
 
 import T
 import Tl
-import control.Tab
+import browser.control.Tab
 import battles.utils.VectorPlane
 import battles.utils.VectorLine
 import kotlin.math.roundToInt

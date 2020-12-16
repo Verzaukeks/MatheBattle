@@ -1,8 +1,5 @@
 import battles.RepetitionOfAnalysis.repetitionOfAnalysis
-import control.Browser
-
-// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API
-// about:debugging#/runtime/this-firefox
+import browser.control.Browser
 
 const val T = "\\t"
 const val Tl = T.length

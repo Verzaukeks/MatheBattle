@@ -5,7 +5,7 @@ import battles.utils.EulerFunction
 import battles.utils.Interval
 import battles.utils.PolynomialFunction
 import battles.utils.TrigonometricFunction
-import control.Tab
+import browser.control.Tab
 import kotlin.math.roundToInt
 
 object RepetitionOfAnalysis {
