@@ -1,4 +1,4 @@
-import battles.RepetitionOfAnalysis.repetitionOfAnalysis
+import battles.RepetitionOfStochastics.repetitionOfStochastics
 import browser.control.Browser
 
 const val T = "\\t"
@@ -14,7 +14,8 @@ fun main(args: Array<String>) {
     while (true) {
         //angleCalculation(tab, index++)
         //areaVolumeCalculation(tab, index++)
-        repetitionOfAnalysis(tab, index++)
+        //repetitionOfAnalysis(tab, index++)
+        repetitionOfStochastics(tab, index)
     }
 
 }
