@@ -1,4 +1,6 @@
-package battles.utils
+package battles.utils.genral
+
+import battles.utils.vector.Vector
 
 class Point {
 

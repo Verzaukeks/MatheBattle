@@ -1,6 +1,6 @@
 package battles
 
-import battles.utils.Point
+import battles.utils.genral.Point
 import browser.control.Tab
 import kotlin.math.absoluteValue
 

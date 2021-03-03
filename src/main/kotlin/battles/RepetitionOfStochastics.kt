@@ -1,9 +1,7 @@
 package battles
 
-import battles.utils.MathUtil
-import battles.utils.Stochastic
+import battles.utils.stochastic.Stochastic
 import browser.control.Tab
-import kotlin.math.absoluteValue
 import kotlin.system.exitProcess
 
 object RepetitionOfStochastics {
@@ -43,6 +41,7 @@ object RepetitionOfStochastics {
         }
 
         tab.clickElement(".submit > input")
+        exitProcess(0)
     }
 
     // Pull until x comes for the first time
@@ -81,9 +80,6 @@ object RepetitionOfStochastics {
 
         tab.inputText(".w350 > div:nth-child(2) > div:nth-child(1) > input:nth-child(1)", "$numerator")
         tab.inputText(".w350 > div:nth-child(2) > div:nth-child(2) > input:nth-child(1)", "$denominator")
-
-        Thread.sleep(1000)
-        exitProcess(0)
     }
 
     // Draw with or without putting back
@@ -117,9 +113,6 @@ object RepetitionOfStochastics {
 
         tab.inputText(".w350 > div:nth-child(2) > div:nth-child(1) > input:nth-child(1)", "$numerator")
         tab.inputText(".w350 > div:nth-child(2) > div:nth-child(2) > input:nth-child(1)", "$denominator")
-
-        Thread.sleep(1000)
-        exitProcess(0)
     }
 
     // Expected value completely open
@@ -211,9 +204,6 @@ object RepetitionOfStochastics {
             }
             else -> error("i do not known what to do: $text")
         }
-
-        Thread.sleep(1000)
-        exitProcess(0)
     }
 
     // Expectation values
@@ -322,8 +312,6 @@ object RepetitionOfStochastics {
             else -> error("i do not known what to do: $text")
         }
 
-        Thread.sleep(1000)
-        exitProcess(0)
         return false
     }
 
@@ -392,8 +380,6 @@ object RepetitionOfStochastics {
             else -> error("i do not known what to do: $text")
         }
 
-        Thread.sleep(1000)
-        exitProcess(0)
         return false
     }
 

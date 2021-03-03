@@ -1,10 +1,10 @@
 package battles
 
 import T
-import battles.utils.EulerFunction
-import battles.utils.Interval
-import battles.utils.PolynomialFunction
-import battles.utils.TrigonometricFunction
+import battles.utils.function.EulerFunction
+import battles.utils.genral.Interval
+import battles.utils.function.PolynomialFunction
+import battles.utils.function.TrigonometricFunction
 import browser.control.Tab
 import kotlin.math.roundToInt
 

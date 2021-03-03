@@ -3,8 +3,8 @@ package battles
 import T
 import Tl
 import browser.control.Tab
-import battles.utils.VectorPlane
-import battles.utils.VectorLine
+import battles.utils.vector.VectorPlane
+import battles.utils.vector.VectorLine
 import kotlin.math.roundToInt
 
 object AngleCalculation {

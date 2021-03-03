@@ -1,4 +1,4 @@
-package battles.utils
+package battles.utils.genral
 
 import T
 import Tl

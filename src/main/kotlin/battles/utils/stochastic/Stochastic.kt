@@ -1,8 +1,6 @@
-package battles.utils
+package battles.utils.stochastic
 
-fun main(args: Array<String>) {
-    println(Stochastic.probabilityScFlMmaxPb(1, 2, 2, 1))
-}
+import battles.utils.MathUtil
 
 object Stochastic {
 
